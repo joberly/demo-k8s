@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+spec:
+  selector:
+    matchLabels:
+      app: demo-go-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: demo-go-api
+    spec:
+      containers:
+      - name: demo-go-api
+        image: ghcr.io/joberly/demo-go-api:latest
+        ports:
+        - containerPort: 8000
