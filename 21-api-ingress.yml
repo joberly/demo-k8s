@@ -1,0 +1,28 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: api-strip-prefix
+spec:
+  stripPrefix:
+    prefixes:
+      - /api
+    forceSlash: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ingressroute
+spec:
+  entryPoints:
+    - web
+  routes:
+  - kind: Rule
+    match: PathPrefix(`/api/`)
+    priority: 10
+    middlewares:
+      - name: api-strip-prefix
+    services:
+    - kind: Service
+      name: demo-go-api
+      port: 80
+      scheme: http

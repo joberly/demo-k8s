@@ -16,4 +16,5 @@ spec:
       - name: demo-go-api
         image: ghcr.io/joberly/demo-go-api:latest
         ports:
-        - containerPort: 8000
+        - name: web
+          containerPort: 8000
